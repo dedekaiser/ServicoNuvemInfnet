@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using SpofityLite.Application.Album.Dto;
 using SpofityLite.Application.Album.Handler.Command;
 using SpofityLite.Application.Album.Handler.Query;
+using SpofityLite.Application.Album.Service;
 using SpotifyLite.Domain.Album.Repository;
 
 namespace SpotifyLite.Api.Controllers
@@ -32,6 +33,29 @@ namespace SpotifyLite.Api.Controllers
             return Created($"{result.Album.Id}", result.Album);
         }
 
+       
+        /*
+        [Route("{id?}")]
+        [HttpPut]
+        public async Task<IActionResult> Editar(Guid id, BandaInputDto Dto)
+        {
+            if (ModelState.IsValid == false)
+                return BadRequest(ModelState);
 
+            var result = await AlbumService.Editar(id, Dto);
+            return Created($"{result.Id}", result);
+        }
+
+        [Route("{id?}")]
+        [HttpDelete]
+        public async Task<IActionResult> Deletar(Guid id)
+        {
+            if (ModelState.IsValid == false)
+                return BadRequest(ModelState);
+
+           await AlbumService.Deletar(id);
+            return NoContent();
+        }
+        */
     }
 }

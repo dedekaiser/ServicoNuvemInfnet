@@ -31,5 +31,6 @@ namespace SpofityLite.Application.Album.Handler
             var result = await this._albumService.ObterTodos();
             return new GetAllAlbumQueryResponse(result);
         }
+
     }
 }

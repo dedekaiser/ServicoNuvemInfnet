@@ -36,5 +36,30 @@ namespace SpofityLite.Application.Album.Service
 
             return this.mapper.Map<List<BandaOutputDto>>(result);
         }
+
+        //ed
+        public async Task<BandaOutputDto> ObterUm(Guid id)
+        {
+            var banda = await this.bandaRepository.Get(id);
+
+            return this.mapper.Map<BandaOutputDto>(banda);
+        }
+
+        public async Task<BandaOutputDto> Editar(Guid id, BandaInputDto dto)
+        {
+            var banda = this.mapper.Map<Banda>(dto);
+            banda.Id = id;
+            await this.bandaRepository.Update(banda);
+
+            return this.mapper.Map<BandaOutputDto>(banda);
+        }
+
+        public async Task Deletar(Guid id)
+        {
+            var usuario = await this.bandaRepository.Get(id); //pegar esse cara
+
+            await this.bandaRepository.Delete(usuario);
+
+        }
     }
 }

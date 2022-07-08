@@ -9,17 +9,17 @@ namespace SpotifyLite.Api.Controllers
     [ApiController]
     public class BandaController : ControllerBase
     {
-        private readonly IBandaService bandaService;
+        private readonly IBandaService BandaService;
 
         public BandaController(IBandaService bandaService)
         {
-            this.bandaService = bandaService;
+            this.BandaService = bandaService;
         }
 
         [HttpGet]
         public async Task<IActionResult> ObterTodos()
         {
-            return Ok(await this.bandaService.ObterTodos());
+            return Ok(await this.BandaService.ObterTodos());
         }
 
         [HttpPost]
@@ -28,9 +28,38 @@ namespace SpotifyLite.Api.Controllers
             if (ModelState.IsValid == false)
                 return BadRequest(ModelState);
 
-            var result = await this.bandaService.Criar(dto);
+            var result = await this.BandaService.Criar(dto);
 
             return Created($"/{result.Id}", result);
+        }
+
+        [Route("{id?}")]
+        [HttpGet]
+        public async Task<IActionResult> ObterUm(Guid id)
+        {
+            return Ok(await this.BandaService.ObterUm(id));
+        }
+
+        [Route("{id?}")]
+        [HttpPut]
+        public async Task<IActionResult> Editar(Guid id, BandaInputDto Dto)
+        {
+            if (ModelState.IsValid == false)
+                return BadRequest(ModelState);
+
+            var result = await BandaService.Editar(id, Dto);
+            return Created($"{result.Id}", result);
+        }
+
+        [Route("{id?}")]
+        [HttpDelete]
+        public async Task<IActionResult> Deletar(Guid id)
+        {
+            if (ModelState.IsValid == false)
+                return BadRequest(ModelState);
+
+            await BandaService.Deletar(id);
+            return NoContent();
         }
     }
 }
