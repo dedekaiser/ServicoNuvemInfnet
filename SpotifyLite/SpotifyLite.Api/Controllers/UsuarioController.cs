@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using SpofityLite.Application.Usuario.DTO;
 using SpofityLite.Application.Usuario.Service;
 using SpotifyLite.Domain.Account.Repository;
+using MediatR;
+using SpofityLite.Application.Usuario.Handler.Command;
 
 namespace SpotifyLite.Api.Controllers
 {
@@ -10,11 +12,15 @@ namespace SpotifyLite.Api.Controllers
     [ApiController]
     public class UsuarioController : ControllerBase
     {
-        public IUsuarioService UsuarioService { get; }
+        
 
-        public UsuarioController(IUsuarioService usuarioService)
+        public IUsuarioService UsuarioService { get; }
+        public IMediator mediator;
+
+        public UsuarioController(IUsuarioService usuarioService, IMediator mediator)
         {
             UsuarioService = usuarioService;
+            this.mediator = mediator;
         }
 
         [HttpGet]
@@ -36,8 +42,8 @@ namespace SpotifyLite.Api.Controllers
             if(ModelState.IsValid == false)
                 return BadRequest(ModelState);
 
-            var result = await UsuarioService.Criar(Dto);
-            return Created($"{result.Id}", result);
+            var result = await this.mediator.Send(new CreateUsuarioCommand(Dto));
+            return Created($"{result.usuario.Id}", result);
         }
 
         [Route("{id?}")]
