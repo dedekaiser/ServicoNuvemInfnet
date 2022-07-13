@@ -21,29 +21,37 @@ namespace SpotifyLite.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> ObterTodos([FromQuery(Name = "page")] string page = "1")
         {
-            return Ok(await this.mediator.Send(new GetAllAlbumQuery()));
+            var result = await this.mediator.Send(new GetAllAlbumQuery());
+            return Ok(result);
         }
 
-        [HttpPost()]
+        [Route("{id?}")]
+        [HttpGet]
+        public async Task<IActionResult> Get(Guid id)
+        {
+            var result = await this.mediator.Send(new GetAlbumQuery(id));
+            return Ok(result);
+        }
+
+        [HttpPost]
         public async Task<IActionResult> Criar(AlbumInputDto dto)
         {
             var result = await this.mediator.Send(new CreateAlbumCommand(dto));
             return Created($"{result.Album.Id}", result.Album);
         }
 
-       
-        /*
         [Route("{id?}")]
         [HttpPut]
-        public async Task<IActionResult> Editar(Guid id, BandaInputDto Dto)
+        public async Task<IActionResult> Editar(Guid id, AlbumInputDto dto)
         {
             if (ModelState.IsValid == false)
                 return BadRequest(ModelState);
 
-            var result = await AlbumService.Editar(id, Dto);
-            return Created($"{result.Id}", result);
+            var result = await this.mediator.Send(new EditAlbumCommand(id, dto));
+
+            return Ok(result);
         }
 
         [Route("{id?}")]
@@ -53,9 +61,9 @@ namespace SpotifyLite.Api.Controllers
             if (ModelState.IsValid == false)
                 return BadRequest(ModelState);
 
-           await AlbumService.Deletar(id);
+            await this.mediator.Send(new DeleteAlbumCommand(id));
+
             return NoContent();
         }
-        */
     }
 }

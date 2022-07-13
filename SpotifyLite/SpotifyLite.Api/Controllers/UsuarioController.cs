@@ -23,6 +23,16 @@ namespace SpotifyLite.Api.Controllers
             this.mediator = mediator;
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Criar(UsuarioInputDto Dto)
+        {
+            if (ModelState.IsValid == false)
+                return BadRequest(ModelState);
+
+            var result = await this.mediator.Send(new CreateUsuarioCommand(Dto));
+            return Created($"{result.usuario.Id}", result);
+        }
+
         [HttpGet]
         public async Task<IActionResult> ObterTodos()
         {
@@ -34,16 +44,6 @@ namespace SpotifyLite.Api.Controllers
         public async Task<IActionResult> ObterUm(Guid id)
         {
             return Ok(await this.UsuarioService.ObterUm(id));
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Criar(UsuarioInputDto Dto)
-        {
-            if(ModelState.IsValid == false)
-                return BadRequest(ModelState);
-
-            var result = await this.mediator.Send(new CreateUsuarioCommand(Dto));
-            return Created($"{result.usuario.Id}", result);
         }
 
         [Route("{id?}")]

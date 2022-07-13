@@ -56,7 +56,7 @@ namespace SpofityLite.Application.Usuario.Service
 
         public async Task Deletar(Guid id)
         {
-            var usuario = await this.usuarioRepository.Get(id); //pegar esse cara
+            var usuario = await this.usuarioRepository.Get(id); 
            
             await this.usuarioRepository.Delete(usuario);
 
