@@ -21,9 +21,8 @@ namespace SpofityLite.Application
             services.AddScoped<IBandaService, BandaService>();
             services.AddScoped<IAlbumService, AlbumService>();
             services.AddScoped<IUsuarioService, UsuarioService>();
-            //services.AddScoped<IMusicaService, MusicaService>();
-            //services.AddScoped<IPlaylistService, PlaylistService>();
-
+            services.AddScoped<IMusicaService, MusicaService>();
+          
             return services;
         }
     }
