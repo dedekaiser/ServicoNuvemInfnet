@@ -72,7 +72,7 @@ namespace SpotifyLite.Test.Application
             DateTime Date = DateTime.Now;
             string Backdrop = "Teste";
             string NomeMusica = "Musica";
-            int NomeDuracao = 400;
+            int NomeDuracao = 280;
             List<MusicaInputDto> InputMusicas = new() { new MusicaInputDto(NomeMusica, NomeDuracao) };
             List<MusicaOutputDto> OutputMusicas = new() { new MusicaOutputDto(guid, NomeMusica, NomeDuracao.ToString()) };
             AlbumInputDto dtoInput = new(Nome, Date, Backdrop, InputMusicas);
@@ -112,8 +112,8 @@ namespace SpotifyLite.Test.Application
 
 
         }
-        [Fact]
-       /* public async Task DeveObterTodosAlbumComSucesso()
+        /*[Fact]
+        public async Task DeveObterTodosAlbumComSucesso()
         {
             //Arrange
             Guid guid = Guid.NewGuid();
