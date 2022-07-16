@@ -5,11 +5,6 @@ using SpofityLite.Application.Album.Service;
 using SpotifyLite.Domain.Album;
 using SpotifyLite.Domain.Album.Repository;
 using SpotifyLite.Domain.Album.ValueObject;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpotifyLite.Test.Application
 {
@@ -64,7 +59,7 @@ namespace SpotifyLite.Test.Application
         }
 
         [Fact]
-        public async Task DeveObterAlbumComSucesso()
+        public async Task DeveObterUmAlbumComSucesso()
         {
             //Arrange
             Guid guid = Guid.NewGuid();
@@ -111,48 +106,11 @@ namespace SpotifyLite.Test.Application
             Assert.Equal(NomeDuracao.ToString(), result.Musicas[0].Duracao);
 
 
+
+
+            
         }
-        /*[Fact]
-        public async Task DeveObterTodosAlbumComSucesso()
-        {
-            //Arrange
-            Guid guid = Guid.NewGuid();
-            string Nome = "Teste";
-            DateTime Date = DateTime.Now;
-            string Backdrop = "Teste album";
-            string NomeMusica = "Nome Musica";
-            int NomeDuracao = 240;
-            List<MusicaInputDto> InputMusicas = new() { new MusicaInputDto(NomeMusica, NomeDuracao) };
-            List<MusicaOutputDto> OutputMusicas = new() { new MusicaOutputDto(guid, NomeMusica, NomeDuracao.ToString()) };
-            AlbumInputDto dtoInput = new(Nome, Date, Backdrop, InputMusicas);
-            AlbumOutputDto dtoOutput = new(guid, Nome, Date, Backdrop, OutputMusicas);
-            Mock<IAlbumRepository> mockRepository = new();
-            Mock<IMapper> mockMapper = new();
-            Album album = new()
-            {
-                Nome = Nome,
-                DataLancamento = Date,
-                Backdrop = Backdrop,
-                Musicas = new List<Musica>() {
-                    new Musica()
-                    {
-                        Nome = NomeMusica,
-                        Duracao = new Duracao(400)
-                    }
-                }
-            };
-            mockMapper.Setup(x => x.Map<Album>(dtoInput)).Returns(album);
-            mockMapper.Setup(x => x.Map<AlbumOutputDto>(album)).Returns(dtoOutput);
-            mockRepository.Setup(x => x.Get(It.IsAny<Guid>())).Returns(Task.FromResult(album));
-
-            //Act
-            var service = new AlbumService(mockRepository.Object, mockMapper.Object);
-            var result = await service.ObterTodos();
-
-            //Assert
-            Assert.NotNull(result);
-
-        }*/
     }
 }
-   
+
+
