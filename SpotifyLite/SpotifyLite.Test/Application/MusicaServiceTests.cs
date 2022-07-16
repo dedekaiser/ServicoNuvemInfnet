@@ -33,11 +33,7 @@ namespace SpotifyLite.Test.Application
             var service = new MusicaService(mockRepository.Object, mockMapper.Object);
             var result = await service.Deletar(guid);
 
-            Assert.Null(result);
-
-
-            
-
+            Assert.Null(result);  
 
         }
 

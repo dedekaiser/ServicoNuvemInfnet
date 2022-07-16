@@ -11,7 +11,7 @@ namespace SpotifyLite.Test.Application
     public class AlbumServiceTests //pegar esse cara aqui
     {
         [Fact]
-        public async Task DeveCriarAlbumComSucesso()
+        public async Task CriarAlbum()
         {
             //Arrange
             Guid guid = Guid.NewGuid();
@@ -59,7 +59,7 @@ namespace SpotifyLite.Test.Application
         }
 
         [Fact]
-        public async Task DeveObterUmAlbumComSucesso()
+        public async Task ObterUmAlbum()
         {
             //Arrange
             Guid guid = Guid.NewGuid();
@@ -105,10 +105,7 @@ namespace SpotifyLite.Test.Application
             Assert.Equal(NomeMusica, result.Musicas[0].Nome);
             Assert.Equal(NomeDuracao.ToString(), result.Musicas[0].Duracao);
 
-
-
-
-            
+                        
         }
     }
 }
